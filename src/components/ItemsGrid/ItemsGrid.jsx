@@ -10,7 +10,9 @@ class ItemsGrid extends Component {
         {id_producto: "lksdf23", nombre: "In rainbows", artistas: [{nombre: "Radiohead"}], descripcion: "Radiohead trabajó en el álbum durante más de dos años con los productores Mark Stent y Nigel Godrich, comenzando a principios de 2005. Durante el proceso, la banda salió de gira tres meses por Europa y Estados Unidos a mediados de 2006.", anio: "2007", imagen: "", precio: "200"},
       ]
     }
+    this.alex = this.alex.bind(this)
   }
+
   render() {
     return (
       <div className="container">

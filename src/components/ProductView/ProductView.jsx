@@ -5,7 +5,7 @@ class Product extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{height: 20+'px'}}>
         <h2>{this.props.product.nombre}</h2>
         <div className="container">
           <div className="row justify-content-center align-items-center">

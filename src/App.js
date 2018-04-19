@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       view: 0,
-      user: {id: alksdjlkj123, nombre: "Alex", apellidos: "Aguilar Zárate"},
+      user: {id: "alksdjlkj123", nombre: "Alex", apellidos: "Aguilar Zárate"},
       product: null,
       shoppingCartItems: null
     };
@@ -43,7 +43,7 @@ class App extends Component {
         { this.state.view === 3 ? <LoginScreen /> : null }
         { this.state.view === 4 ? <SignupScreen /> : null }
         { this.state.view === 5 ? <ProductView product = {this.state.product} /> : null }
-        { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} /> }
+        { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} /> : null }
       </div>
     );
   }
