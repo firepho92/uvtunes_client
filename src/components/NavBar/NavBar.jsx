@@ -13,7 +13,7 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#" onClick={e => this.handleNavItemClick(e, 0)}>uvTunes</a>
+        <a className="navbar-brand" href="." onClick={e => this.handleNavItemClick(e, 0)}>uvTunes</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -26,19 +26,19 @@ class NavBar extends Component {
 
           <ul className="navbar-nav">
             <li className={this.props.currentView === 1 ? "nav-item active" : "nav-item"}>
-              <a className="nav-link" href="#" onClick={e => this.handleNavItemClick(e, 1)}>Música</a>
+              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 1)}>Música</a>
             </li>
             <li className={this.props.currentView === 2 ? "nav-item active" : "nav-item"}>
-              <a className="nav-link" href="#" onClick={e => this.handleNavItemClick(e, 2)}>Vídeos</a>
+              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 2)}>Vídeos</a>
             </li>
           </ul>
 
           <ul className="navbar-nav">
             <li className="nav-item active">
-              {this.props.user === null ? null : <a className="nav-link" href="#">Carrito</a>}
+              {this.props.user === null ? null : <a className="nav-link" href=".">Carrito</a>}
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="#" onClick={e => this.handleNavItemClick(e, 3)}><FontAwesomeIcon icon={faUser} /></a>
+              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 3)}><FontAwesomeIcon icon={faUser} /></a>
             </li>
           </ul>
 
