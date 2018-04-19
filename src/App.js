@@ -4,7 +4,8 @@ import Index from './components/Index/Index';
 import ItemsGrid from './components/ItemsGrid/ItemsGrid';
 import LoginScreen from './components/LoginScreen/LoginScreen';
 import SignupScreen from './components/SignupScreen/SignupScreen';
-import ProductView from './components/ProductView/ProductView'
+import ProductView from './components/ProductView/ProductView';
+import ShoppingCartView from './components/ShoppingCartView/ShoppingCartView';
 import './App.css';
 
 class App extends Component {
@@ -12,8 +13,9 @@ class App extends Component {
     super(props);
     this.state = {
       view: 0,
-      user: null,
-      product: null
+      user: {id: alksdjlkj123, nombre: "Alex", apellidos: "Aguilar Zárate"},
+      product: null,
+      shoppingCartItems: null
     };
     this.handleViewChange = this.handleViewChange.bind(this);
     this.getProduct = this.getProduct.bind(this);
@@ -36,11 +38,12 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar user = {this.state.user} currentView = {this.state.view} changeView = {this.handleViewChange}/>
-        { this.state.view === 0 ? <Index changeView = {this.handleViewChange} /> : null }
+        { this.state.view === 0 ? <Index changeView = {this.handleViewChange} user = {this.state.user} /> : null }
         { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.view} changeView = {this.handleViewChange} getProduct = {this.getProduct} /> : null }
         { this.state.view === 3 ? <LoginScreen /> : null }
         { this.state.view === 4 ? <SignupScreen /> : null }
         { this.state.view === 5 ? <ProductView product = {this.state.product} /> : null }
+        { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} /> }
       </div>
     );
   }
