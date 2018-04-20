@@ -9,6 +9,7 @@ import ShoppingCartView from './components/ShoppingCartView/ShoppingCartView';
 import SelectPhysicalItemQuantity from './components/SelectPhysicalItemQuantity/SelectPhysicalItemQuantity';
 import PaymentView from './components/PaymentView/PaymentView';
 import UserProfile from './components/UserProfile/UserProfile';
+import PurchasingHistory from './components/PurchasingHistory/PurchasingHistory';
 import './App.css';
 
 class App extends Component {
@@ -74,6 +75,7 @@ class App extends Component {
         { this.state.view === 7 ? <SelectPhysicalItemQuantity product = {this.state.physicalProduct} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 8 ? <PaymentView deliveryData = {this.state.deliveryData} /> : null }
         { this.state.view === 9 ? <UserProfile user = {this.state.user} changeView = {this.handleViewChange} /> : null }
+        { this.state.view === 10 ? <PurchasingHistory changeView = {this.handleViewChange} /> : null }
       </div>
     );
   }

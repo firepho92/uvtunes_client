@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 
 class NavBar extends Component {
   constructor(props){
@@ -44,7 +45,7 @@ class NavBar extends Component {
 
           <ul className="navbar-nav">
             <li className="nav-item active">
-              {this.props.user === null ? null : <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 6)}>Carrito</a>}
+              {this.props.user === null ? null : <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 6)}><FontAwesomeIcon icon={faShoppingCart} /></a>}
             </li>
             <li className="nav-item active">
               <a className="nav-link" href="." onClick={e => this.handleClick(e, 3)}><FontAwesomeIcon icon={faUser} /></a>

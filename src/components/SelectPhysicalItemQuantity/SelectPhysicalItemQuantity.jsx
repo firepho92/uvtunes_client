@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Card from '../Card/Card';
 
 class SelectPhysicalItemQuantity extends Component {
 
@@ -10,7 +9,7 @@ class SelectPhysicalItemQuantity extends Component {
 
   render() {
     return (
-      <div className="container" style={{height: 20+'px'}}>
+      <div className="container">
         <h2>{this.props.product.nombre}</h2>
         <div className="container">
           <div className="row justify-content-center align-items-center">

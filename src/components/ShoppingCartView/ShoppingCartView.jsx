@@ -12,7 +12,7 @@ class ShoppingCartView extends Component {
   componentDidMount(){
     var total = 0;
     for(var i = 0; i < this.props.items.length; i++){
-      total += parseInt(this.props.items[i].precio);
+      total += parseInt(this.props.items[i].precio, 10);
     }
     this.setState({
       total: total

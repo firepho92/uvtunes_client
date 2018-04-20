@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ShoppingCartRows from './ShoppingCartRows/ShoppingCartRows';
 
-class PurchasinHistory extends Component {
+class PurchasingHistory extends Component {
 
   handleClick(e, view){
     e.preventDefault();
@@ -24,20 +23,25 @@ class PurchasinHistory extends Component {
                   <th scope="col">Producto</th>
                   <th scope="col">Cantidad</th>
                   <th scope="col">Precio</th>
-                  <th scope="col">Fecha</th>
+                  <th scope="col">Fecha(aaaa/mm/dd)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr></tr>
+                <tr>
+                  <td>See you on the other side</td>
+                  <td>1</td>
+                  <td>$100</td>
+                  <td>2017/08/03</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
         <div className="row justify-content-end">
-          <h4>Total: {this.state.total}</h4>
+          
         </div>
         <div className="row justify-content-end">
-          <button type="submit" className="btn btn-primary" onClick={e => this.handleClick(e, 8)}>Comprar</button>
+          <button type="submit" className="btn btn-primary" onClick={e => this.handleClick(e, 9)}>Atrás</button>
         </div>
       </div>
     );
