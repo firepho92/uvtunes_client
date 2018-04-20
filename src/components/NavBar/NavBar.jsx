@@ -3,11 +3,20 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faUser from '@fortawesome/fontawesome-free-solid/faUser';
 
 class NavBar extends Component {
+  constructor(props){
+    super(props);
+    this.handleNavItemClick = this.handleNavItemClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   handleNavItemClick(e, view){
     this.props.changeView(view);
     e.preventDefault();
+  }
 
+  handleClick(e){
+    e.preventDefault();
+    this.props.user !== null ? this.handleNavItemClick(e, 9) : this.handleNavItemClick(e, 3);
   }
 
   render() {
@@ -35,10 +44,10 @@ class NavBar extends Component {
 
           <ul className="navbar-nav">
             <li className="nav-item active">
-              {this.props.user === null ? null : <a className="nav-link" href=".">Carrito</a>}
+              {this.props.user === null ? null : <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 6)}>Carrito</a>}
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 3)}><FontAwesomeIcon icon={faUser} /></a>
+              <a className="nav-link" href="." onClick={e => this.handleClick(e, 3)}><FontAwesomeIcon icon={faUser} /></a>
             </li>
           </ul>
 

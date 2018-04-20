@@ -3,9 +3,14 @@ import './ProductView.css';
 
 class Product extends Component {
 
+  handleClick(e, view){
+    e.preventDefault();
+    this.props.changeView(view);
+  }
+
   render() {
     return (
-      <div className="container" style={{height: 20+'px'}}>
+      <div className="container">
         <h2>{this.props.product.nombre}</h2>
         <div className="container">
           <div className="row justify-content-center align-items-center">
@@ -26,7 +31,7 @@ class Product extends Component {
           <br/>
           <br/>
           <div className="row justify-content-end">
-            <div className="col-sm-4"><button type="button" className="btn btn-primary">Comprar físico</button>&nbsp;<button type="button" className="btn btn-primary">Comprar digital</button></div>
+            <div className="col-sm-4"><button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 7)}>Comprar físico</button>&nbsp;<button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 6)}>Comprar digital</button></div>
           </div>
         </div>
       </div>
