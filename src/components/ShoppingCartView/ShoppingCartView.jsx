@@ -51,7 +51,7 @@ class ShoppingCartView extends Component {
           </div>
         </div>
         <div className="row justify-content-end">
-          <h4>Total: {this.state.total}</h4>
+          <h4>Total: ${this.state.total}</h4>
         </div>
         <div className="row justify-content-end">
           <button type="submit" className="btn btn-primary" onClick={e => this.handleClick(e, 8)}>Comprar</button>

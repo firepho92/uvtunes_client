@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 class SignupScreen extends Component {
 
+  handleSubmit(e){
+    e.preventDefault();
+    console.log("signedUp");
+  }
+
   render() {
     return (
       <div className="container">

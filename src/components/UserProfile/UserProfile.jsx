@@ -27,8 +27,14 @@ class UserProfile extends Component {
           <br/>
           <br/>
           <div className="row justify-content-between">
-            <div className="col-sm-4"><button type="button" className="btn btn-primary">Subir foto</button></div>
+            <div className="col-sm-6"><button type="button" className="btn btn-primary">Subir foto</button></div>
             <div className="col-sm-4"><button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 10)}>Historial de compras</button>&nbsp;<button type="button" className="btn btn-primary">Editar información</button></div>
+          </div>
+          <br/>
+          <div className="row justify-content-end">
+            <div className="col-sm-1">
+              <button type="button" className="btn btn-outline-danger">Salir</button>
+            </div>
           </div>
         </div>
       </div>
