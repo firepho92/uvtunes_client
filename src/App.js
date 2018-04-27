@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
     this.state = {
       view: 0,
-      user: {id: "alksdjlkj123", nombre: "Alex", apellidos: "Aguilar Zárate"},
+      user: null,
       product: null,
       shoppingCartItems: [
         {id_producto:"asd23", nombre: "See you on the other side", artistas: [{nombre: "KoRn"}], descripcion: "Salió a la venta el 6 de diciembre de 2005 y fue grabado en el estudio de la casa del vocalista Jonathan Davis donde se grabó el disco Take a Look in the Mirror.", anio: "2005", imagen: "", precio: "100", cantidad: 3, tipo: 1},
