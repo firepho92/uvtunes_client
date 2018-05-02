@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import axios from "axios/index";
+import server from '../../config.json';
 
 class LoginScreen extends Component {
 
   handleSubmit(e){
     e.preventDefault();
+    
+    let data = {
+      "email" : this.email.value,
+      "contrasena" : this.contrasena.value
+    }
+
+    axios.post('http://' + server.address + ':' + server.port + '/shop/login/', data)
+      .then(function (response) {
+          if (response.data.exito) alert("Exito en la solicitud");
+          else alert(response.data.error);
+        })
+      .catch(function (error) {
+          alert("Falla en la solicitud");
+      });
   }
 
   render(){
@@ -13,13 +29,13 @@ class LoginScreen extends Component {
           <div className="col-sm-6">
             <h2>Entrar</h2>
             <form onSubmit={e => this.handleSubmit(e)}>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" />
+              <div className="form-group">
+                <label htmlFor="formEmail">Email</label>
+                <input type="email" className="form-control" id="formEmail" aria-describedby="emailHelp" placeholder="Email" ref={(input) => this.email = input} />
               </div>
               <div className="form-group">
-                <label for="exampleInputPassword1">Contraseña</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Contraseña" />
+                <label htmlFor="formContrasena">Contraseña</label>
+                <input type="password" className="form-control" id="formContrasena" placeholder="Contraseña" ref={(input) => this.contrasena = input} />
               </div>
               <button type="submit" className="btn btn-primary">Entrar</button>
             </form>
