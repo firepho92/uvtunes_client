@@ -10,6 +10,10 @@ class Index extends Component {
   }
 
   render() {
+    const button = (this.props.user === null ? 
+                      <button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 4)}>Crea tu cuenta</button> :
+                      <button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 9)}>Mi cuenta</button>);
+
     return (
       <div className="wrapper">
         <div className="row justify-content-center align-items-center wrapper">
@@ -17,7 +21,7 @@ class Index extends Component {
             <img src={logo} alt="Logo uvTunes" id="logo" />
           </div>
           <div className="col">
-            <button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 4)}>Crea tu cuenta</button>
+            { button }
           </div>
         </div>
       </div>

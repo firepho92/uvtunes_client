@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import axios from "axios/index";
+import server from '../../config.json';
 
 class UserProfile extends Component {
+  logout(e) {
+    e.preventDefault();
+
+    axios.post('http://' + server.address + ':' + server.port + '/shop/logout/')
+      .then(function (response) {
+        if (response) {        
+          this.props.changeView(0);
+          this.props.setUser(null);
+        } else {
+          alert("No fue possible hacer el logout");
+        }
+      }.bind(this))
+      .catch(function (error) {
+          alert("Falla en la solicitud");
+      });
+  }
 
   handleClick(e, view){
     e.preventDefault();
@@ -12,7 +30,7 @@ class UserProfile extends Component {
   render() {
     return (
       <div className="container">
-        <h2>{this.props.user.nombre}</h2>
+        <h2>{this.props.user.nombre + " " + this.props.user.apellido}</h2>
         <div className="container">
           <div className="row justify-content-center align-items-center">
             <div className="col">
@@ -33,7 +51,7 @@ class UserProfile extends Component {
           <br/>
           <div className="row justify-content-end">
             <div className="col-sm-1">
-              <button type="button" className="btn btn-outline-danger">Salir</button>
+              <button type="button" className="btn btn-outline-danger" onClick={e => this.logout(e)}>Salir</button>
             </div>
           </div>
         </div>

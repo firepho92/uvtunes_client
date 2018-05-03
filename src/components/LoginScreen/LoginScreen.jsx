@@ -3,20 +3,23 @@ import axios from "axios/index";
 import server from '../../config.json';
 
 class LoginScreen extends Component {
-
   handleSubmit(e){
     e.preventDefault();
-    
+
     let data = {
       "email" : this.email.value,
       "contrasena" : this.contrasena.value
     }
-
+    
     axios.post('http://' + server.address + ':' + server.port + '/shop/login/', data)
       .then(function (response) {
-          if (response.data.exito) alert("Exito en la solicitud");
-          else alert(response.data.error);
-        })
+        if (response.data.exito) {
+          this.props.setUser(response.data.registro);
+          this.props.changeView(0);
+        } else {
+          alert("No fue possible hacer el login -> " + response.data.error);
+        }
+      }.bind(this))
       .catch(function (error) {
           alert("Falla en la solicitud");
       });
@@ -25,6 +28,7 @@ class LoginScreen extends Component {
   render(){
     return(
       <div className="container">
+        <div id="bModal" style={{ display : 'none' }}></div>
         <div className="row justify-content-center align-items-center">
           <div className="col-sm-6">
             <h2>Entrar</h2>

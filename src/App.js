@@ -27,9 +27,16 @@ class App extends Component {
       deliveryData: {price: 700, estimatedTime: "3 días"}
     };
     this.handleViewChange = this.handleViewChange.bind(this);
+    this.setUser = this.setUser.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.addShoppingCartItem = this.addShoppingCartItem.bind(this);
     this.removeShoppingCartItem = this.removeShoppingCartItem.bind(this);
+  }
+
+  setUser(user) {
+    this.setState({
+      user: user
+    });
   }
 
   getProduct(product){
@@ -68,13 +75,13 @@ class App extends Component {
         <NavBar user = {this.state.user} currentView = {this.state.view} changeView = {this.handleViewChange}/>
         { this.state.view === 0 ? <Index changeView = {this.handleViewChange} user = {this.state.user} /> : null }
         { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.view} changeView = {this.handleViewChange} getProduct = {this.getProduct} /> : null }
-        { this.state.view === 3 ? <LoginScreen /> : null }
+        { this.state.view === 3 ? <LoginScreen setUser = {this.setUser} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 4 ? <SignupScreen /> : null }
         { this.state.view === 5 ? <ProductView product = {this.state.product} addShoppingCartItem = {this.addShoppingCartItem} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} removeShoppingCartItem = {this.removeShoppingCartItem} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 7 ? <SelectPhysicalItemQuantity product = {this.state.physicalProduct} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 8 ? <PaymentView deliveryData = {this.state.deliveryData} /> : null }
-        { this.state.view === 9 ? <UserProfile user = {this.state.user} changeView = {this.handleViewChange} /> : null }
+        { this.state.view === 9 ? <UserProfile user = {this.state.user} setUser = {this.setUser} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 10 ? <PurchasingHistory changeView = {this.handleViewChange} /> : null }
       </div>
     );
