@@ -5,7 +5,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios/index";
-import server from './config.json';
 
 window.onload = function() {
     let search = window.location.search;
@@ -16,12 +15,12 @@ window.onload = function() {
         let variables = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}');
         
         if (variables["token"] !== undefined) 
-            axios.post('http://' + server.address + ':' + server.port + '/shop/activate/', {"token" : variables["token"]})
+            axios.post('https://uvtunes-backend.herokuapp.com/shop/activate/', {"token" : variables["token"]})
                 .then(function (response) {
                     if (response.data.exito) alert("Su cuenta fue activada!");
                 });
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App user = { JSON.parse(sessionStorage.getItem('user')) } />, document.getElementById('root'));
 registerServiceWorker();

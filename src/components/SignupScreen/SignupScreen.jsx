@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from "axios/index";
-import server from '../../config.json';
 
 class SignupScreen extends Component {
 
@@ -35,11 +34,15 @@ class SignupScreen extends Component {
   }
   
   register(data){
-    axios.post('http://' + server.address + ':' + server.port + '/shop/register/', data)
+    axios.post('https://uvtunes-backend.herokuapp.com/shop/register/', data)
       .then(function (response) {
-          if (response.data) alert("Exito en la solicitud");
-          else alert("No fue posible registrarse");
-        })
+          if (response.data) {
+            alert("Exito en la solicitud");
+            this.props.changeView(3);
+          } else {
+            alert("No fue posible registrarse");
+          }
+        }.bind(this))
       .catch(function (error) {
           alert("Falla en la solicitud");
       });

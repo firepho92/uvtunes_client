@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from "axios/index";
-import server from '../../config.json';
 
 class LoginScreen extends Component {
   handleSubmit(e){
@@ -11,13 +10,14 @@ class LoginScreen extends Component {
       "contrasena" : this.contrasena.value
     }
     
-    axios.post('http://' + server.address + ':' + server.port + '/shop/login/', data)
+    axios.post('https://uvtunes-backend.herokuapp.com//shop/login/', data)
       .then(function (response) {
         if (response.data.exito) {
+          sessionStorage.setItem('user', JSON.stringify(response.data.registro));
           this.props.setUser(response.data.registro);
           this.props.changeView(0);
         } else {
-          alert("No fue possible hacer el login -> " + response.data.error);
+          alert("No fue possible hacer el login: " + response.data.error);
         }
       }.bind(this))
       .catch(function (error) {

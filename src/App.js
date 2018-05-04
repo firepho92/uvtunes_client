@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
     this.state = {
       view: 0,
-      user: null,
+      user: this.props.user,
       product: null,
       shoppingCartItems: [
         {id_producto:"asd23", nombre: "See you on the other side", artistas: [{nombre: "KoRn"}], descripcion: "Salió a la venta el 6 de diciembre de 2005 y fue grabado en el estudio de la casa del vocalista Jonathan Davis donde se grabó el disco Take a Look in the Mirror.", anio: "2005", imagen: "", precio: "100", cantidad: 3, tipo: 1},
@@ -76,7 +76,7 @@ class App extends Component {
         { this.state.view === 0 ? <Index changeView = {this.handleViewChange} user = {this.state.user} /> : null }
         { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.view} changeView = {this.handleViewChange} getProduct = {this.getProduct} /> : null }
         { this.state.view === 3 ? <LoginScreen setUser = {this.setUser} changeView = {this.handleViewChange} /> : null }
-        { this.state.view === 4 ? <SignupScreen /> : null }
+        { this.state.view === 4 ? <SignupScreen changeView = {this.handleViewChange} /> : null }
         { this.state.view === 5 ? <ProductView product = {this.state.product} addShoppingCartItem = {this.addShoppingCartItem} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} removeShoppingCartItem = {this.removeShoppingCartItem} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 7 ? <SelectPhysicalItemQuantity product = {this.state.physicalProduct} changeView = {this.handleViewChange} /> : null }
