@@ -10,7 +10,7 @@ class LoginScreen extends Component {
       "contrasena" : this.contrasena.value
     }
     
-    axios.post('https://uvtunes-backend.herokuapp.com//shop/login/', data)
+    axios.post('https://uvtunes-backend.herokuapp.com/shop/login/', data)
       .then(function (response) {
         if (response.data.exito) {
           sessionStorage.setItem('user', JSON.stringify(response.data.registro));
