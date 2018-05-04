@@ -12,7 +12,7 @@ class ShoppingCartView extends Component {
   componentDidMount(){
     var total = 0;
     for(var i = 0; i < this.props.items.length; i++){
-      total += parseInt(this.props.items[i].precio, 10);
+      total += parseFloat(this.props.items[i].precio, 10);
     }
     this.setState({
       total: total
@@ -44,7 +44,7 @@ class ShoppingCartView extends Component {
               </thead>
               <tbody>
                 {this.props.items.map(item => {
-                  return <ShoppingCartRows item = {item} />;
+                  return <ShoppingCartRows key = {item.id_producto} item = {item} />;
                 })}
               </tbody>
             </table>

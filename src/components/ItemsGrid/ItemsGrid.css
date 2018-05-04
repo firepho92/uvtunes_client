@@ -1,0 +1,4 @@
+.items-container{
+    max-height: 70%;
+    overflow: auto;
+}

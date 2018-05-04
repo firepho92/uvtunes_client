@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import NavBar from './components/NavBar/NavBar';
 import Index from './components/Index/Index';
 import ItemsGrid from './components/ItemsGrid/ItemsGrid';
@@ -18,20 +19,46 @@ class App extends Component {
     this.state = {
       view: 0,
       user: this.props.user,
+      productos: [],
       product: null,
-      shoppingCartItems: [
-        {id_producto:"asd23", nombre: "See you on the other side", artistas: [{nombre: "KoRn"}], descripcion: "Salió a la venta el 6 de diciembre de 2005 y fue grabado en el estudio de la casa del vocalista Jonathan Davis donde se grabó el disco Take a Look in the Mirror.", anio: "2005", imagen: "", precio: "100", cantidad: 3, tipo: 1},
-        {id_producto: "lksdf23", nombre: "In rainbows", artistas: [{nombre: "Radiohead"}], descripcion: "Radiohead trabajó en el álbum durante más de dos años con los productores Mark Stent y Nigel Godrich, comenzando a principios de 2005. Durante el proceso, la banda salió de gira tres meses por Europa y Estados Unidos a mediados de 2006.", anio: "2007", imagen: "", precio: "200", cantidad: 1, tipo: 1},
-      ],
-      physicalProduct: {id_producto:"asd23", nombre: "See you on the other side", artistas: [{nombre: "KoRn"}], descripcion: "Salió a la venta el 6 de diciembre de 2005 y fue grabado en el estudio de la casa del vocalista Jonathan Davis donde se grabó el disco Take a Look in the Mirror.", anio: "2005", imagen: "", precio: "100", cantidad: 3},
+      shoppingCartItems: [],
+      physicalProduct: null,
       deliveryData: {price: 700, estimatedTime: "3 días"}
     };
     this.handleViewChange = this.handleViewChange.bind(this);
     this.setUser = this.setUser.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.getProducts = this.getProducts.bind(this);
     this.addShoppingCartItem = this.addShoppingCartItem.bind(this);
+    this.handleItemsContext = this.handleItemsContext.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.handlePurchasingMethod = this.handlePurchasingMethod.bind(this);
     this.removeShoppingCartItem = this.removeShoppingCartItem.bind(this);
   }
+
+  isLoggedIn(){
+    if(this.state.user !== null){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  getProducts(view, context){
+    var self = this;
+    axios.get('https://uvtunes-backend.herokuapp.com/productos/')
+        .then(function (response) {
+            console.log(response.data);
+            self.setState({
+                productos: response.data,
+                itemsContext: context,
+                view: view
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
   setUser(user) {
     this.setState({
@@ -46,10 +73,26 @@ class App extends Component {
     this.handleViewChange(5);
   }
 
-  addShoppingCartItem(item){
+  addShoppingCartItem(quantity, price){
+    var producto = this.state.product;
+    producto.precio = price;
+    producto.cantidad = quantity;
     this.setState({
-      shoppingCartItems: [...this.state.shoppingCartItems, item]
+      shoppingCartItems: [...this.state.shoppingCartItems, producto]
     })
+  }
+
+  handlePurchasingMethod(productType){
+    if(this.isLoggedIn()){
+      if(productType === 0){
+        this.handleViewChange(7);
+      }else{
+        this.addShoppingCartItem(1, this.state.product.precio_digital);
+        this.handleViewChange(6);
+      }
+    }else{
+      console.log('Please log in');
+    }
   }
 
   removeShoppingCartItem(item){
@@ -69,15 +112,19 @@ class App extends Component {
     })
   }
 
+  handleItemsContext(view, context){
+    this.getProducts(view, context);
+  }
+
   render() {
     return (
       <div className="App">
-        <NavBar user = {this.state.user} currentView = {this.state.view} changeView = {this.handleViewChange}/>
+        <NavBar user = {this.state.user} currentView = {this.state.view} changeView = {this.handleViewChange} changeItemsContext = {this.handleItemsContext}/>
         { this.state.view === 0 ? <Index changeView = {this.handleViewChange} user = {this.state.user} /> : null }
-        { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.view} changeView = {this.handleViewChange} getProduct = {this.getProduct} /> : null }
+        { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.itemsContext} changeView = {this.handleViewChange} productos = {this.state.productos} getProduct = {this.getProduct}/> : null }
         { this.state.view === 3 ? <LoginScreen setUser = {this.setUser} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 4 ? <SignupScreen changeView = {this.handleViewChange} /> : null }
-        { this.state.view === 5 ? <ProductView product = {this.state.product} addShoppingCartItem = {this.addShoppingCartItem} changeView = {this.handleViewChange} /> : null }
+        { this.state.view === 5 ? <ProductView product = {this.state.product} handlePurchasingMethod = {this.handlePurchasingMethod} /> : null }
         { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} removeShoppingCartItem = {this.removeShoppingCartItem} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 7 ? <SelectPhysicalItemQuantity product = {this.state.physicalProduct} changeView = {this.handleViewChange} /> : null }
         { this.state.view === 8 ? <PaymentView deliveryData = {this.state.deliveryData} /> : null }
