@@ -3,9 +3,9 @@ import './ProductView.css';
 
 class Product extends Component {
 
-  handleClick(e, view){
+  handleClick(e, productType){
     e.preventDefault();
-    this.props.changeView(view);
+    this.props.handlePurchasingMethod(productType);
   }
 
   render() {
@@ -19,19 +19,17 @@ class Product extends Component {
             </div>
             <div className="col">
               <div className="info-box">
-                <p>artista(s): {this.props.product.artistas.map(artista => {
-                  return artista.nombre;
-                })}</p>
                 <p>descripción: {this.props.product.descripcion}</p>
-                <p>año: {this.props.product.anio}</p>
-                <p>precio: ${this.props.product.precio}</p>
+                <p>año: {this.props.product.ano}</p>
+                <p>precio físico: ${this.props.product.precio_fisico}</p>
+                <p>precio digital: ${this.props.product.precio_digital}</p>
               </div>
             </div>
           </div>
           <br/>
           <br/>
           <div className="row justify-content-end">
-            <div className="col-sm-4"><button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 7)}>Comprar físico</button>&nbsp;<button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 6)}>Comprar digital</button></div>
+            <div className="col-sm-4"><button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 0)}>Comprar físico</button>&nbsp;<button type="button" className="btn btn-primary" onClick={e => this.handleClick(e, 1)}>Comprar digital</button></div>
           </div>
         </div>
       </div>

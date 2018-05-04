@@ -10,8 +10,9 @@ class NavBar extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleNavItemClick(e, view){
-    this.props.changeView(view);
+  handleNavItemClick(e, view, context){
+    this.props.changeItemsContext(view ,context);
+    //this.props.changeView(view);
     e.preventDefault();
   }
 
@@ -36,10 +37,10 @@ class NavBar extends Component {
 
           <ul className="navbar-nav">
             <li className={this.props.currentView === 1 ? "nav-item active" : "nav-item"}>
-              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 1)}>Música</a>
+              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 1, 'M')}>Música</a>
             </li>
             <li className={this.props.currentView === 2 ? "nav-item active" : "nav-item"}>
-              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 2)}>Vídeos</a>
+              <a className="nav-link" href="." onClick={e => this.handleNavItemClick(e, 2, 'V')}>Vídeos</a>
             </li>
           </ul>
 
