@@ -48,7 +48,6 @@ class App extends Component {
     var self = this;
     axios.get('https://uvtunes-backend.herokuapp.com/productos/')
         .then(function (response) {
-            console.log(response.data);
             self.setState({
                 productos: response.data,
                 itemsContext: context,
@@ -122,7 +121,7 @@ class App extends Component {
         <NavBar user = {this.state.user} currentView = {this.state.view} changeView = {this.handleViewChange} changeItemsContext = {this.handleItemsContext}/>
         { this.state.view === 0 ? <Index changeView = {this.handleViewChange} user = {this.state.user} /> : null }
         { this.state.view === 1 || this.state.view === 2 ? <ItemsGrid itemsContext = {this.state.itemsContext} changeView = {this.handleViewChange} productos = {this.state.productos} getProduct = {this.getProduct}/> : null }
-        { this.state.view === 3 ? <LoginScreen setUser = {this.setUser} changeView = {this.handleViewChange} /> : null }
+        { this.state.view === 3 ? <LoginScreen setUser = {this.setUser} changeView = {this.handleViewChange} ref = {(loginScreen) => this.loginScreen = loginScreen} /> : null }
         { this.state.view === 4 ? <SignupScreen changeView = {this.handleViewChange} /> : null }
         { this.state.view === 5 ? <ProductView product = {this.state.product} handlePurchasingMethod = {this.handlePurchasingMethod} /> : null }
         { this.state.view === 6 ? <ShoppingCartView items = {this.state.shoppingCartItems} removeShoppingCartItem = {this.removeShoppingCartItem} changeView = {this.handleViewChange} /> : null }

@@ -33,9 +33,9 @@ class UserProfile extends Component {
       .then(function (response) {
           if (response.data) {
             let user = this.props.user;
-            Object.keys(data).map(function(key) {
+            for (let key in data) {
               user[key] = data[key];
-            });
+            };
 
             this.props.setUser(user);
 
@@ -78,42 +78,44 @@ class UserProfile extends Component {
     const inputs = (!this.state.updateMode ?
                       [<div key="upInfo1" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2">Dirección:</label>
-                        <div className="col-sm-10">{ this.props.user.direccion }</div>
+                        <div className="col-sm-10">{ this.props.user.direccion ? this.props.user.direccion : "-" }</div>
                        </div>,
                        <div key="upInfo2" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2">Código postal:</label>
-                        <div className="col-sm-10">{ this.props.user.cp }</div>
+                        <div className="col-sm-10">{ this.props.user.cp ? this.props.user.cp : "-" }</div>
                        </div>,
                        <div key="upInfo3" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formCiudad">Ciudad:</label>
-                        <div className="col-sm-10">{ this.props.user.ciudad }</div>
+                        <div className="col-sm-10">{ this.props.user.ciudad ? this.props.user.ciudad : "-" }</div>
                        </div>,
                        <div key="upInfo4" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formEstado">Estado:</label>
-                        <div className="col-sm-10">{ this.props.user.estado }</div>
+                        <div className="col-sm-10">{ this.props.user.estado ? this.props.user.estado : "-" }</div>
                        </div>] :
                       [<div key="upInfo5" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formDireccion">Dirección:</label>
                         <div className="col-sm-10"> 
-                          <input type="text" className="form-control" id="formDireccion" placeholder={ this.props.user.direccion } ref={(input) => this.direccion = input} />
+                          <input type="text" className="form-control" id="formDireccion" placeholder="Dirección..." defaultValue={ this.props.user.direccion } ref={(input) => this.direccion = input} maxLength="60" />
                         </div>
                        </div>,
                        <div key="upInfo6" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formCP">Código postal:</label>
                         <div className="col-sm-10"> 
-                          <input type="text" className="form-control" id="formCP" placeholder={ this.props.user.cp } ref={(input) => this.cp = input} />
+                          <input type="text" className="form-control" id="formCP" placeholder="Código postal..." defaultValue={ this.props.user.cp } ref={(input) => this.cp = input} pattern="[0-9]{5}" onFocus={() => this.cp.setCustomValidity(this.cp.validity.patternMismatch ? 'El código postal debe tener 5 carácteres' : '')} onKeyDown={() => { 
+                            this.cp.value = this.cp.value.replace(/[^\d]/,'');
+                          }} onKeyUp={() => this.cp.value = this.cp.value.replace(/[^\d]/,'') } maxLength="5" />
                         </div>
                        </div>,
                        <div key="upInfo7" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formCiudad">Ciudad:</label>
                         <div className="col-sm-10"> 
-                          <input type="text" className="form-control" id="formCiudad" placeholder={ this.props.user.ciudad } ref={(input) => this.ciudad = input} />
+                          <input type="text" className="form-control" id="formCiudad" placeholder="Ciudad..." defaultValue={ this.props.user.ciudad } ref={(input) => this.ciudad = input} maxLength="30" />
                         </div>
                        </div>,
                        <div key="upInfo8" className="form-group row">
                         <label style={{ fontWeight : "bold" }} className="control-label col-sm-2" htmlFor="formEstado">Estado:</label>
                         <div className="col-sm-10"> 
-                          <input type="text" className="form-control" id="formEstado" placeholder={ this.props.user.estado } ref={(input) => this.estado = input} />
+                          <input type="text" className="form-control" id="formEstado" placeholder="Estado..." defaultValue={ this.props.user.estado } ref={(input) => this.estado = input} maxLength="20" />
                         </div>
                        </div>]);
     const buttons = (!this.state.updateMode ? 

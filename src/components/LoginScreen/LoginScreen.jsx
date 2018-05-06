@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 import axios from "axios/index";
 
 class LoginScreen extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      alert: {
+        visible: false,
+        message: "",
+        type: "danger"
+      }
+    }
+    this.setAlert = this.setAlert.bind(this);
+  }
+
+  setAlert(visible, message, type) {
+    this.setState({
+      alert: {
+        visible: visible,
+        message: message,
+        type: type
+      }
+    })
+  }
+
   handleSubmit(e){
     e.preventDefault();
 
@@ -16,16 +39,32 @@ class LoginScreen extends Component {
           sessionStorage.setItem('user', JSON.stringify(response.data.registro));
           this.props.setUser(response.data.registro);
           this.props.changeView(0);
+          
+          if (window.location.search !== "") {       
+              let search = window.location.search.substr(1);              
+              let variables = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+              if (variables["success"] !== undefined) window.location.href = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+          }
         } else {
-          alert("No fue possible hacer el login: " + response.data.error);
+          this.setAlert(true, 
+            <div>
+              No fue possible hacer el login: {response.data.error}
+            </div>, "danger");
         }
       }.bind(this))
       .catch(function (error) {
-          alert("Falla en la solicitud");
-      });
+        this.setAlert(true, 
+          <div>
+            Falla en la solicitud
+          </div>, "danger");
+      }.bind(this));
   }
 
   render(){
+    const alert = (this.state.alert.visible ?
+                    <Alert color={this.state.alert.type}>
+                     { this.state.alert.message }
+                    </Alert> : "");
     return(
       <div className="container">
         <div id="bModal" style={{ display : 'none' }}></div>
@@ -35,14 +74,15 @@ class LoginScreen extends Component {
             <form onSubmit={e => this.handleSubmit(e)}>
               <div className="form-group">
                 <label htmlFor="formEmail">Email</label>
-                <input type="email" className="form-control" id="formEmail" aria-describedby="emailHelp" placeholder="Email" ref={(input) => this.email = input} />
+                <input type="email" className="form-control" id="formEmail" aria-describedby="emailHelp" placeholder="Email" ref={(input) => this.email = input} pattern=".*\S+.*" required={true} maxLength="45" onKeyDown={() => this.setAlert(false, "")} />
               </div>
               <div className="form-group">
                 <label htmlFor="formContrasena">Contraseña</label>
-                <input type="password" className="form-control" id="formContrasena" placeholder="Contraseña" ref={(input) => this.contrasena = input} />
+                <input type="password" className="form-control" id="formContrasena" placeholder="Contraseña" ref={(input) => this.contrasena = input} pattern=".*\S+.*" required={true} maxLength="20" onKeyDown={() => this.setAlert(false, "")} />
               </div>
-              <button type="submit" className="btn btn-primary">Entrar</button>
+              <button type="submit" className="btn btn-primary">Entrar</button><br /><br />
             </form>
+            { alert }
           </div>
         </div>
       </div>
